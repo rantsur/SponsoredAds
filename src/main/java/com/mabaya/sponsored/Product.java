@@ -10,11 +10,11 @@ public class Product
 {
 	String title;
 	BigDecimal price;
-	String category;
+	Category category;
 	String serial;
 	String sellerId;
 
-	public Product(String title, BigDecimal price, String category, String serial, String sellerId)
+	public Product(String title, BigDecimal price, Category category, String serial, String sellerId)
 	{
 		this.title = title;
 		this.price = price;
@@ -43,12 +43,12 @@ public class Product
 		this.price = price;
 	}
 
-	public String getCategory()
+	public Category getCategory()
 	{
 		return category;
 	}
 
-	public void setCategory(String category)
+	public void setCategory(Category category)
 	{
 		this.category = category;
 	}
