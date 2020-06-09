@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ import com.mabaya.sponsored.model.Product;
 @Service
 public class ProductService
 {
-	Map<Category, LinkedList<BidPerProduct>> categoryToBidPerProductMap = new HashMap<>();
+	Map<Category, TreeSet<BidPerProduct>> categoryToBidPerProductMap = new HashMap<>();
 	Campaign highestBidCampaign;
 	ProductDao productDao;
 
@@ -35,7 +36,7 @@ public class ProductService
 	public void addToMap(Category category, Product product, BigDecimal bid)
 	{
 		BidPerProduct bidPerProduct = new BidPerProduct(product, bid);
-		LinkedList<BidPerProduct> bidPerProductList = categoryToBidPerProductMap.computeIfAbsent(category, (key) -> new LinkedList<>());
+		TreeSet<BidPerProduct> bidPerProductList = categoryToBidPerProductMap.computeIfAbsent(category, (key) -> new TreeSet<>(BidPerProduct::compareTo));
 		bidPerProductList.add(bidPerProduct);
 	}
 
@@ -65,9 +66,8 @@ public class ProductService
 	public Product getRelevantProduct(Category category)
 	{
 		if (categoryToBidPerProductMap.containsKey(category)) {
-			List<BidPerProduct> bidPerProducts = categoryToBidPerProductMap.get(category);
-			bidPerProducts.sort(Comparator.comparing(BidPerProduct::getBid));
-			return bidPerProducts.get(0).getProduct();
+			TreeSet<BidPerProduct> bidPerProducts = categoryToBidPerProductMap.get(category);
+			return bidPerProducts.last().getProduct();
 		}
 		else {
 			return getHighestBidProduct();

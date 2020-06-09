@@ -12,18 +12,18 @@ import com.mabaya.sponsored.model.Product;
 @RestController
 public class AppController
 {
-	final ProductService businessLogic;
+	final ProductService productService;
 
 	public AppController(ProductService businessLogic)
 	{
-		this.businessLogic = businessLogic;
+		this.productService = businessLogic;
 	}
 
 	@ResponseBody
 	@RequestMapping("/newCampaign")
 	public Campaign createCampaign(@RequestBody Campaign newCampaign)
 	{
-		businessLogic.addProductsToCampaign(newCampaign);
+		productService.addProductsToCampaign(newCampaign);
 		return newCampaign;
 	}
 
@@ -31,6 +31,6 @@ public class AppController
 	@RequestMapping("/getProduct")
 	public Product getPromotedProduct(@RequestBody Category category)
 	{
-		return businessLogic.getRelevantProduct(category);
+		return productService.getRelevantProduct(category);
 	}
 }

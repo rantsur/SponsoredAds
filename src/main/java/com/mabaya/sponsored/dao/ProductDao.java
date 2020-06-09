@@ -1,7 +1,6 @@
 package com.mabaya.sponsored.dao;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -24,32 +23,50 @@ public class ProductDao
 	final static String HEALTHCARE = "healthcare";
 	final static String FOOD = "food";
 	final static String GAMBLING = "gambling";
+	final static String PRODUCT = "product-";
+	final static String SERIAL = "serial-";
+	final static String SELLER_ID = "sellerId-";
 	final static int CATEGORY_OPTIONS = 5;
 	List<Product> productList = new ArrayList<>();
 
 	@PostConstruct
 	public void init()
 	{
-		Product p1 = new Product("product-1", new BigDecimal(BigInteger.ONE), getRandomCategory(), "serial-1", "sellerId-ABC");
-		Product p2 = new Product("product-2", new BigDecimal(BigInteger.ONE), getRandomCategory(), "serial-2", "sellerId-ABC");
-		Product p3 = new Product("product-3", new BigDecimal(BigInteger.ONE), getRandomCategory(), "serial-3", "sellerId-ABC");
-		productList.add(p1);
-		productList.add(p2);
-		productList.add(p3);
+		for (int i = 0; i < 9; i++) {
+			Product p = createNewProduct(i + 1, getPriceForProduct(i), getSellerSuffix(i));
+			productList.add(p);
+		}
+	}
 
-		Product p4 = new Product("product-4", new BigDecimal("3"), getRandomCategory(), "serial-4", "sellerId-LMN");
-		Product p5 = new Product("product-5", new BigDecimal("3"), getRandomCategory(), "serial-5", "sellerId-LMN");
-		Product p6 = new Product("product-6", new BigDecimal("3"), getRandomCategory(), "serial-6", "sellerId-LMN");
-		productList.add(p4);
-		productList.add(p5);
-		productList.add(p6);
+	private BigDecimal getPriceForProduct(int i)
+	{
+		if (i < 3) {
+			return new BigDecimal("10");
+		}
+		else if (i < 6) {
+			return new BigDecimal("9");
+		}
+		else {
+			return new BigDecimal("8");
+		}
+	}
 
-		Product p7 = new Product("product-7", new BigDecimal(BigInteger.TEN), getRandomCategory(), "serial-7", "sellerId-XYZ");
-		Product p8 = new Product("product-8", new BigDecimal(BigInteger.TEN), getRandomCategory(), "serial-8", "sellerId-XYZ");
-		Product p9 = new Product("product-9", new BigDecimal(BigInteger.TEN), getRandomCategory(), "serial-9", "sellerId-XYZ");
-		productList.add(p7);
-		productList.add(p8);
-		productList.add(p9);
+	private String getSellerSuffix(int i)
+	{
+		if (i < 3) {
+			return "ABC";
+		}
+		else if (i < 6) {
+			return "LMN";
+		}
+		else {
+			return "XYZ";
+		}
+	}
+
+	private Product createNewProduct(int suffix, BigDecimal price, String sellerSuffix)
+	{
+		return new Product(PRODUCT.concat(String.valueOf(suffix)), price, getRandomCategory(), SERIAL.concat(String.valueOf(suffix)), SELLER_ID.concat(sellerSuffix));
 	}
 
 	private static Category getRandomCategory()
@@ -82,7 +99,6 @@ public class ProductDao
 		return r.nextInt((CATEGORY_OPTIONS - min) + 1) + min;
 	}
 
-	// todo - note about
 	public List<Product> getProductList(){
 		return productList;
 	}

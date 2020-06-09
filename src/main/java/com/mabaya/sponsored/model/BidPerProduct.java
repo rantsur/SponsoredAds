@@ -6,7 +6,7 @@ import java.util.Objects;
 /**
  * Created by Ran Tsur on 09-Jun-20.
  */
-public class BidPerProduct
+public class BidPerProduct implements Comparable<BidPerProduct>
 {
 	private Product product;
 	private BigDecimal bid;
@@ -54,6 +54,17 @@ public class BidPerProduct
 	public int hashCode()
 	{
 		return Objects.hash(product, bid);
+	}
+
+	@Override
+	public int compareTo(BidPerProduct bidPerProduct)
+	{
+		int compareResult = this.bid.compareTo(bidPerProduct.bid);
+		if (compareResult == 0) {
+			// same bid case, compare alphabetic order of product serial
+			return this.product.getSerial().compareTo(bidPerProduct.product.getSerial());
+		}
+		return compareResult;
 	}
 }
 
