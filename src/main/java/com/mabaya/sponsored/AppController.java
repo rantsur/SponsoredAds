@@ -5,16 +5,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mabaya.sponsored.model.Campaign;
+import com.mabaya.sponsored.model.Category;
+import com.mabaya.sponsored.model.Product;
+
 @RestController
 public class AppController
 {
-	@ResponseBody @RequestMapping("/newCampaign")
-	public Campaign createCampaign(@RequestBody Campaign campaign){
-		return new Campaign(campaign.getName(), campaign.bid, campaign.sellerId);
+	final ProductService businessLogic;
+
+	public AppController(ProductService businessLogic)
+	{
+		this.businessLogic = businessLogic;
 	}
 
-	@ResponseBody @RequestMapping("/getProduct")
-	public Product getPromotedProduct(@RequestBody String category){
-		return null;
+	@ResponseBody
+	@RequestMapping("/newCampaign")
+	public Campaign createCampaign(@RequestBody Campaign newCampaign)
+	{
+		businessLogic.addProductsToCampaign(newCampaign);
+		return newCampaign;
+	}
+
+	@ResponseBody
+	@RequestMapping("/getProduct")
+	public Product getPromotedProduct(@RequestBody Category category)
+	{
+		return businessLogic.getRelevantProduct(category);
 	}
 }

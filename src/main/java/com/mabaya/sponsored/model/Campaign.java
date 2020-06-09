@@ -1,7 +1,6 @@
-package com.mabaya.sponsored;
+package com.mabaya.sponsored.model;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -15,11 +14,11 @@ public class Campaign
 		ACTIVE, DELETED
 	}
 
-	String name;
-	Status status;
-	BigDecimal bid;
-	String sellerId;
-	List<Product> productList;
+	private String name;
+	private Status status;
+	private BigDecimal bid;
+	private String sellerId;
+	private List<Product> productList;
 
 	public Campaign(String name, BigDecimal bid, String sellerId)
 	{

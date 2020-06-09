@@ -1,4 +1,4 @@
-package com.mabaya.sponsored;
+package com.mabaya.sponsored.model;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -8,11 +8,11 @@ import java.util.Objects;
  */
 public class Product
 {
-	String title;
-	BigDecimal price;
-	Category category;
-	String serial;
-	String sellerId;
+	private String title;
+	private BigDecimal price;
+	private Category category;
+	private String serial;
+	private String sellerId;
 
 	public Product(String title, BigDecimal price, Category category, String serial, String sellerId)
 	{
