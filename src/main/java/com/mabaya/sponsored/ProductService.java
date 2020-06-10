@@ -1,9 +1,7 @@
 package com.mabaya.sponsored;
 
 import java.math.BigDecimal;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
@@ -11,6 +9,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
 
 import com.mabaya.sponsored.dao.ProductDao;
 import com.mabaya.sponsored.model.BidPerProduct;
@@ -49,7 +48,7 @@ public class ProductService
 		}
 
 		if (!CollectionUtils.isEmpty(productsForSeller)) {
-			if (highestBidCampaign == null) {
+			if (ObjectUtils.isEmpty(highestBidCampaign)) {
 				highestBidCampaign = campaign;
 			}
 			else if (campaign.getBid().compareTo(highestBidCampaign.getBid()) > 0) {
@@ -65,8 +64,8 @@ public class ProductService
 
 	public Product getRelevantProduct(Category category)
 	{
-		if (categoryToBidPerProductMap.containsKey(category)) {
-			TreeSet<BidPerProduct> bidPerProducts = categoryToBidPerProductMap.get(category);
+		TreeSet<BidPerProduct> bidPerProducts = categoryToBidPerProductMap.get(category);
+		if (!ObjectUtils.isEmpty(bidPerProducts)) {
 			return bidPerProducts.last().getProduct();
 		}
 		else {
