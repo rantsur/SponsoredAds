@@ -18,12 +18,17 @@ import com.mabaya.sponsored.model.Product;
 @Repository
 public class ProductDao implements ProductDaoInf
 {
+	/**
+	 * The categories STRING below are classic case of ENUM type.
+	 * I decided to define it as STRING in order to avoid misbehavior while getting unfamiliar category from the user
+	 */
 	final static String SPORT = "sport";
 	final static String TRAVEL = "travel";
 	final static String HEALTHCARE = "healthcare";
 	final static String FOOD = "food";
 	final static String GAMBLING = "gambling";
 	final static String PRODUCT = "product-";
+
 	final static String SERIAL = "serial-";
 	final static String SELLER_ID = "sellerId-";
 	final static int CATEGORY_OPTIONS = 5;
@@ -38,6 +43,9 @@ public class ProductDao implements ProductDaoInf
 		}
 	}
 
+	/**
+	 * Returns arbitrary price according to given range
+	 */
 	private BigDecimal getPriceForProduct(int i)
 	{
 		if (i < 3) {
@@ -51,6 +59,9 @@ public class ProductDao implements ProductDaoInf
 		}
 	}
 
+	/**
+	 * Returns arbitrary suffix to the seller-id according to given range
+	 */
 	private String getSellerSuffix(int i)
 	{
 		if (i < 3) {

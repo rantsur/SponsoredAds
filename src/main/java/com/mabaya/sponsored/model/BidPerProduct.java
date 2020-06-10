@@ -56,12 +56,15 @@ public class BidPerProduct implements Comparable<BidPerProduct>
 		return Objects.hash(product, bid);
 	}
 
+	/**
+	 * Compare bidPerProducts
+	 * in case of equals bid, compare by alphabetic order of product serial
+	 */
 	@Override
 	public int compareTo(BidPerProduct bidPerProduct)
 	{
 		int compareResult = this.bid.compareTo(bidPerProduct.bid);
 		if (compareResult == 0) {
-			// same bid case, compare alphabetic order of product serial
 			return this.product.getSerial().compareTo(bidPerProduct.product.getSerial());
 		}
 		return compareResult;

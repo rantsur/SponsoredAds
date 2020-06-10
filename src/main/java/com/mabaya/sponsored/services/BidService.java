@@ -32,8 +32,12 @@ public class BidService implements BidServiceInf
 		for (Product product : productList) {
 			addToCacheMap(product.getCategory(), product, campaign.getBid());
 		}
+		searchForHighestBidCampaign(campaign);
+	}
 
-		if (!CollectionUtils.isEmpty(productList)) {
+	private void searchForHighestBidCampaign(Campaign campaign)
+	{
+		if (!CollectionUtils.isEmpty(campaign.getProductList())) {
 			if (ObjectUtils.isEmpty(highestBidCampaign)) {
 				highestBidCampaign = campaign;
 			}
@@ -43,6 +47,11 @@ public class BidService implements BidServiceInf
 		}
 	}
 
+	/**
+	 * Add product and bid to cache.
+	 * if cache contains the given category, add bidPerProduct to the existing sorted set,
+	 * else add new key to the cache (key = given category) and value is new sorted set contains the bidPerProduct
+	 */
 	public void addToCacheMap(Category category, Product product, BigDecimal bid)
 	{
 		BidPerProduct bidPerProduct = new BidPerProduct(product, bid);
@@ -50,11 +59,11 @@ public class BidService implements BidServiceInf
 		bidPerProductList.add(bidPerProduct);
 	}
 
-	public Product getHighestBidProduct()
-	{
-		return highestBidCampaign.getProductList().get(0);
-	}
-
+	/**
+	 * @param category of the requested product
+	 * @return product in the given category with the highest bid
+	 * or product of campaign with the highest bid (in case of no products in the given category)
+	 */
 	@Override
 	public Product getRelevantProduct(Category category)
 	{
@@ -65,5 +74,13 @@ public class BidService implements BidServiceInf
 		else {
 			return getHighestBidProduct();
 		}
+	}
+
+	/**
+	 * @return arbitrary product from the campaign with the highest bid
+	 */
+	public Product getHighestBidProduct()
+	{
+		return highestBidCampaign.getProductList().get(0);
 	}
 }

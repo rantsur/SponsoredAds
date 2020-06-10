@@ -26,5 +26,4 @@ public class CampaignService implements CampaignServiceInf
 	{
 		return savedCampaigns;
 	}
-
 }

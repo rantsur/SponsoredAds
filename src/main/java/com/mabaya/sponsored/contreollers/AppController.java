@@ -30,8 +30,8 @@ public class AppController
 	@RequestMapping("/newCampaign")
 	public Campaign createCampaign(@RequestBody Campaign newCampaign)
 	{
-		Campaign campaign = productService.addProductsToCampaign(newCampaign);
-		Campaign savedCampaign = campaignService.persistCampaign(campaign);
+		productService.addProductsToCampaign(newCampaign);
+		Campaign savedCampaign = campaignService.persistCampaign(newCampaign);
 		bidService.process(savedCampaign);
 		return savedCampaign;
 	}

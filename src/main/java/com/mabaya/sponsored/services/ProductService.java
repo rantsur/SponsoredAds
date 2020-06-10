@@ -22,8 +22,12 @@ public class ProductService implements ProductServiceInf
 		this.productDao = productDao;
 	}
 
+	/**
+	 * Attach input campaign to related products according to sellerId
+	 * @param campaign given campaign from the user
+	 * @return campaign populated with products
+	 */
 	private Campaign initCampaignProducts(Campaign campaign){
-		// get available products for seller campaign
 		List<Product> productsForSeller = productDao.getProductList().stream().filter(product -> product.getSellerId().equals(campaign.getSellerId())).collect(Collectors.toList());
 		for (Product product : productsForSeller) {
 			campaign.getProductList().add(product);
