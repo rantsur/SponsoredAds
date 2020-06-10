@@ -16,7 +16,7 @@ import com.mabaya.sponsored.model.Product;
  * Created by Ran Tsur on 09-Jun-20.
  */
 @Repository
-public class ProductDao
+public class ProductDao implements ProductDaoInf
 {
 	final static String SPORT = "sport";
 	final static String TRAVEL = "travel";
@@ -99,6 +99,7 @@ public class ProductDao
 		return r.nextInt((CATEGORY_OPTIONS - min) + 1) + min;
 	}
 
+	@Override
 	public List<Product> getProductList(){
 		return productList;
 	}
