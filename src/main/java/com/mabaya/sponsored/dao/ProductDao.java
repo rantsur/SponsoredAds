@@ -27,8 +27,8 @@ public class ProductDao implements ProductDaoInf
 	final static String HEALTHCARE = "healthcare";
 	final static String FOOD = "food";
 	final static String GAMBLING = "gambling";
-	final static String PRODUCT = "product-";
 
+	final static String PRODUCT = "product-";
 	final static String SERIAL = "serial-";
 	final static String SELLER_ID = "sellerId-";
 	final static int CATEGORY_OPTIONS = 5;

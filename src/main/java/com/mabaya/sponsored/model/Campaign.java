@@ -36,7 +36,15 @@ public class Campaign
 	@OneToMany
 	private List<Product> productList;
 
-	protected Campaign(){
+	public Campaign(String name, BigDecimal bid, String sellerId){
+		this.name = name;
+		this.bid = bid;
+		this.sellerId = sellerId;
+		this.status = Status.ACTIVE;
+		this.productList = new ArrayList<>();
+	}
+
+	public Campaign(){
 		this.status = Status.ACTIVE;
 		this.productList = new ArrayList<>();
 	}
