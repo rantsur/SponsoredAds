@@ -1,5 +1,7 @@
 package com.mabaya.sponsored.contreollers;
 
+import javax.validation.Valid;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,7 +30,7 @@ public class AppController
 
 	@ResponseBody
 	@RequestMapping("/newCampaign")
-	public Campaign createCampaign(@RequestBody Campaign newCampaign)
+	public Campaign createCampaign(@Valid @RequestBody Campaign newCampaign)
 	{
 		productService.addProductsToCampaign(newCampaign);
 		Campaign savedCampaign = campaignService.persistCampaign(newCampaign);

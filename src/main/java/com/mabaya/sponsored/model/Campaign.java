@@ -5,26 +5,38 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 /**
  * Created by Ran Tsur on 09-Jun-20.
  */
+@Entity
 public class Campaign
 {
 	public enum Status{
 		ACTIVE, DELETED
 	}
 
+	@NotNull
+	@NotEmpty(message = "Please provide a name")
 	private String name;
 	private Status status;
+	@NotNull(message = "Please provide a positive bid")
+	@Min(0)
 	private BigDecimal bid;
+	@NotNull()
+	@NotEmpty(message = "Please provide a seller ID")
+	@Id
 	private String sellerId;
+	@OneToMany
 	private List<Product> productList;
 
-	public Campaign(String name, BigDecimal bid, String sellerId)
-	{
-		this.name = name;
-		this.bid = bid;
-		this.sellerId = sellerId;
+	protected Campaign(){
 		this.status = Status.ACTIVE;
 		this.productList = new ArrayList<>();
 	}

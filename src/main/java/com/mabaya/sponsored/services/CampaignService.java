@@ -14,6 +14,7 @@ import com.mabaya.sponsored.model.Campaign;
 public class CampaignService implements CampaignServiceInf
 {
 	List<Campaign> savedCampaigns = new ArrayList<>();
+
 	@Override
 	public Campaign persistCampaign(Campaign campaign)
 	{

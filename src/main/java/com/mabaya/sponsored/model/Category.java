@@ -2,11 +2,16 @@ package com.mabaya.sponsored.model;
 
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  * Created by Ran Tsur on 09-Jun-20.
  */
+@Entity
 public class Category
 {
+	@Id
 	private String name;
 
 	public String getName()

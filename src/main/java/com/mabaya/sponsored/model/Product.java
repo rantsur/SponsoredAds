@@ -3,14 +3,21 @@ package com.mabaya.sponsored.model;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
 /**
  * Created by Ran Tsur on 09-Jun-20.
  */
+@Entity
 public class Product
 {
 	private String title;
 	private BigDecimal price;
+	@OneToOne
 	private Category category;
+	@Id
 	private String serial;
 	private String sellerId;
 
@@ -22,6 +29,8 @@ public class Product
 		this.serial = serial;
 		this.sellerId = sellerId;
 	}
+
+	public Product(){}
 
 	public String getTitle()
 	{
